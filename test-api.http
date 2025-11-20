@@ -1,0 +1,149 @@
+### Employee Management API Test File
+### Use this file in IntelliJ IDEA to test the API endpoints
+### Click the green arrow next to each request to execute it
+
+### ============================================
+### 1. ROOT ENDPOINT
+### ============================================
+
+### Get API Information
+GET http://localhost:8080/
+
+### ============================================
+### 2. GET ALL EMPLOYEES
+### ============================================
+
+### Get all employees
+GET http://localhost:8080/api/employees
+
+### ============================================
+### 3. CREATE EMPLOYEE (Name and Email)
+### ============================================
+
+### Create employee with name and email only
+POST http://localhost:8080/api/employees
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "john.doe@example.com"
+}
+
+### ============================================
+### 4. CREATE EMPLOYEE (Name, Email, and Phone)
+### ============================================
+
+### Create employee with name, email, and phone
+POST http://localhost:8080/api/employees
+Content-Type: application/json
+
+{
+  "name": "Jane Smith",
+  "email": "jane.smith@example.com",
+  "phone": "1234567890"
+}
+
+### Create another employee for testing
+POST http://localhost:8080/api/employees
+Content-Type: application/json
+
+{
+  "name": "Bob Johnson",
+  "email": "bob.johnson@example.com",
+  "phone": "9876543210"
+}
+
+### ============================================
+### 5. FETCH EMPLOYEE BY EMAIL
+### ============================================
+
+### Get employee by email using JPA Specifications
+GET http://localhost:8080/api/employees/email/john.doe@example.com/specifications
+
+### Get employee by email using HQL
+GET http://localhost:8080/api/employees/email/john.doe@example.com/hql
+
+### Get employee by email using Native SQL
+GET http://localhost:8080/api/employees/email/john.doe@example.com/native
+
+### ============================================
+### 6. FETCH EMPLOYEE BY NAME
+### ============================================
+
+### Get employee by name using JPA Specifications
+GET http://localhost:8080/api/employees/name/John Doe/specifications
+
+### Get employee by name using HQL
+GET http://localhost:8080/api/employees/name/John Doe/hql
+
+### Get employee by name using Native SQL
+GET http://localhost:8080/api/employees/name/John Doe/native
+
+### ============================================
+### 7. UPDATE EMPLOYEE DETAILS
+### ============================================
+
+### Update employee (last name, phone, and address)
+PUT http://localhost:8080/api/employees/john.doe@example.com
+Content-Type: application/json
+
+{
+  "lastName": "Doe",
+  "phone": "9999999999",
+  "address": "123 Main Street, City, State 12345"
+}
+
+### ============================================
+### 8. UPDATE EMPLOYEE PHONE ONLY
+### ============================================
+
+### Update employee phone only
+PATCH http://localhost:8080/api/employees/john.doe@example.com/phone
+Content-Type: application/json
+
+{
+  "phone": "1111111111"
+}
+
+### ============================================
+### 9. DELETE EMPLOYEE
+### ============================================
+
+### Delete employee by email
+DELETE http://localhost:8080/api/employees/john.doe@example.com
+
+### ============================================
+### 10. ERROR TESTING
+### ============================================
+
+### Try to get non-existent employee (should return 404)
+GET http://localhost:8080/api/employees/email/notfound@example.com/hql
+
+### Try to create employee with invalid data (should return 400)
+POST http://localhost:8080/api/employees
+Content-Type: application/json
+
+{
+  "name": "",
+  "email": "invalid-email"
+}
+
+### Try to create duplicate email (should return 400)
+POST http://localhost:8080/api/employees
+Content-Type: application/json
+
+{
+  "name": "Duplicate",
+  "email": "jane.smith@example.com"
+}
+
+### Try to update non-existent employee (should return 404)
+PUT http://localhost:8080/api/employees/notfound@example.com
+Content-Type: application/json
+
+{
+  "lastName": "Test",
+  "phone": "0000000000",
+  "address": "Test Address"
+}
+
